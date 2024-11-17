@@ -1,0 +1,125 @@
+<?xml version="1.0" ?>
+<robot name="Sensors" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:macro name="Sensors" params="prefix">
+
+<xacro:include filename="$(find Sensors_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find Sensors_description)/urdf/Sensors.trans" />
+<xacro:include filename="$(find Sensors_description)/urdf/Sensors.gazebo" />
+<link name="${prefix}base_link"/>
+
+<link name="${prefix}Cutting">
+  <inertial>
+    <origin xyz="-0.03293717665626733 0.020727081511385102 0.3860954538809803" rpy="0 0 0"/>
+    <mass value="0.006696484154716176"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Sensors_description/meshes/Cutting.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Sensors_silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Sensors_description/meshes/Cutting.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="${prefix}Round">
+  <inertial>
+    <origin xyz="-2.0816681711721685e-17 0.04535557500523088 -0.009999958044641155" rpy="0 0 0"/>
+    <mass value="0.6204799291883062"/>
+    <inertia ixx="0.000484" iyy="0.002043" izz="0.002485" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Sensors_description/meshes/Round.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Sensors_silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Sensors_description/meshes/Round.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="${prefix}Cutting">
+  <inertial>
+    <origin xyz="0.00706282334373267 -0.07427291848861489 0.03354845388098032" rpy="0 0 0"/>
+    <mass value="0.006696484154716176"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Sensors_description/meshes/Cutting.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Sensors_silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Sensors_description/meshes/Cutting.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="${prefix}Cutting">
+  <inertial>
+    <origin xyz="0.005885823343732673 -0.0192729184886149 -0.0002015461190196799" rpy="0 0 0"/>
+    <mass value="0.006696484154716176"/>
+    <inertia ixx="1e-06" iyy="1e-06" izz="1e-06" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Sensors_description/meshes/Cutting.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Sensors_silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Sensors_description/meshes/Cutting.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="${prefix}base_revolute_joint" type="continuous">
+  <origin xyz="-0.038823 0.006231 0.420066" rpy="0 0 0"/>
+  <parent link="${prefix}base_link"/>
+  <child link="${prefix}Cutting"/>
+  <axis xyz="0.0 0.0 -1.0"/>
+</joint>
+
+<joint name="${prefix}Rigid 2" type="fixed">
+  <origin xyz="0.015 -0.043769 0.858769" rpy="0 0 0"/>
+  <parent link="${prefix}base_link"/>
+  <child link="${prefix}Round"/>
+</joint>
+
+<joint name="${prefix}Slider 3" type="prismatic">
+  <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+  <parent link="${prefix}Cutting"/>
+  <child link="${prefix}Cutting"/>
+  <axis xyz="0.0 0.0 -1.0"/>
+  <limit upper="0.45762" lower="-0.203532" effort="100" velocity="100"/>
+</joint>
+
+<joint name="${prefix}Slider 5" type="prismatic">
+  <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+  <parent link="${prefix}Cutting"/>
+  <child link="${prefix}Cutting"/>
+  <axis xyz="0.0 1.0 0.0"/>
+  <limit upper="0.042707" lower="0.0" effort="100" velocity="100"/>
+</joint>
+
+</xacro:macro>
+</robot>
